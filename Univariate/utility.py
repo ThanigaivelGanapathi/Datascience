@@ -1,4 +1,8 @@
 import pandas as pd
+import seaborn as sns
+from matplotlib import pyplot
+from scipy.stats import norm
+
 class Univariate:
     def qualQuan(self,dataset):
         qual = []
@@ -40,4 +44,21 @@ class Univariate:
         frequency_tble["RelativeFrequency"] = (dataset[column].value_counts().values) / dataset[column].shape[0]
         frequency_tble["CummulativeFrequency"] = frequency_tble["RelativeFrequency"].cumsum()
         return frequency_tble
+
+    def getPdfProbs(self,dataset,startRange,endRange):
+        ax = sns.distplot(dataset,kde = True,kde_kws = {'color':'blue'},color = 'green')
+        pyplot.axvline(startRange,color= "red")
+        pyplot.axvline(endRange,color= "red")
+        sample = dataset
+        sample_mean = round(sample.mean(),2)
+        sample_std = round(sample.std(),2) 
+        dist = norm(40,60)
+        values = [value for value in range(40,60)]
+        probs = [dist.pdf(value) for value in values]
+        return sample_mean,sample_std,round(sum(probs),2)
+ 
+ 
+        #print(f"Mean : {sample_mean}, Standard Deviation : {sample_std} ")
+
+        
  

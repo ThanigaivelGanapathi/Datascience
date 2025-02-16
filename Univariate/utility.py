@@ -26,5 +26,13 @@ class Univariate:
             tble[column]["Greater"]  = tble[column]["Q3:75%"] + tble[column]["1.5Rule"]
             tble[column]["Minimum"] = dataset[column].min()
             tble[column]["Maximum"] = dataset[column].max()
-        return tble    
+        return tble   
+
+    def getFrequencyTble(self,dataset,column):
+        frequency_tble = pd.DataFrame(columns = ["UniqueValues","Frequency","RelativeFrequency","CummulativeFrequency"])
+        frequency_tble["UniqueValues"] = dataset[column].value_counts().index
+        frequency_tble["Frequency"] = dataset[column].value_counts().values
+        frequency_tble["RelativeFrequency"] = (dataset[column].value_counts().values) / dataset[column].shape[0]
+        frequency_tble["CummulativeFrequency"] = frequency_tble["RelativeFrequency"].cumsum()
+        return frequency_tble
  

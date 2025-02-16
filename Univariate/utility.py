@@ -14,7 +14,7 @@ class Univariate:
                 quan.append(column)
         return qual,quan
 
-    def getMeanMedianMode(self,dataset,quan):
+    def getUnivarateTbl(self,dataset,quan):
         tble = pd.DataFrame(index = ["Mean","Median","Mode","Q1:25%","Q2:50%","Q3:75%","Q4:100%","IQR","1.5Rule","Lesser","Greater","Minimum","Maximum","Skew","Kurtosis","Variance","STD"],columns = quan)
         for column in quan:             
             tble[column]["Mean"] = dataset[column].mean() 
@@ -56,9 +56,13 @@ class Univariate:
         values = [value for value in range(40,60)]
         probs = [dist.pdf(value) for value in values]
         return sample_mean,sample_std,round(sum(probs),2)
- 
- 
-        #print(f"Mean : {sample_mean}, Standard Deviation : {sample_std} ")
 
+    def convert_to_Std_NB(self,dataset):
+       values = [value for value in dataset]
+       sd_mean = dataset.mean()
+       sd_std = dataset.std()
+       z_score = [ (j - sd_mean)/sd_std for j in values]
+       return z_score
+       
         
- 
+

@@ -11,7 +11,7 @@ class Univariate:
         return qual,quan
 
     def getMeanMedianMode(self,dataset,quan):
-        tble = pd.DataFrame(index = ["Mean","Median","Mode","Q1:25%","Q2:50%","Q3:75%","Q4:100%","IQR","1.5Rule","Lesser","Greater","Minimum","Maximum"],columns = quan)
+        tble = pd.DataFrame(index = ["Mean","Median","Mode","Q1:25%","Q2:50%","Q3:75%","Q4:100%","IQR","1.5Rule","Lesser","Greater","Minimum","Maximum","Skew","Kurtosis","Variance","STD"],columns = quan)
         for column in quan:             
             tble[column]["Mean"] = dataset[column].mean() 
             tble[column]["Median"] = dataset[column].median() 
@@ -26,6 +26,11 @@ class Univariate:
             tble[column]["Greater"]  = tble[column]["Q3:75%"] + tble[column]["1.5Rule"]
             tble[column]["Minimum"] = dataset[column].min()
             tble[column]["Maximum"] = dataset[column].max()
+            tble[column]["Skew"] = dataset[column].skew()
+            tble[column]["Kurtosis"] = dataset[column].kurtosis()
+            tble[column]["Variance"] = dataset[column].var()
+            tble[column]["STD"] = dataset[column].std()
+            
         return tble   
 
     def getFrequencyTble(self,dataset,column):

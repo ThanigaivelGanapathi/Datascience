@@ -52,8 +52,8 @@ class Univariate:
         sample = dataset
         sample_mean = round(sample.mean(),2)
         sample_std = round(sample.std(),2) 
-        dist = norm(40,60)
-        values = [value for value in range(40,60)]
+        dist = norm(startRange,endRange)
+        values = [value for value in range(startRange,endRange)]
         probs = [dist.pdf(value) for value in values]
         return sample_mean,sample_std,round(sum(probs),2)
 
